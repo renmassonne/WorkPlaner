@@ -1,32 +1,44 @@
 import React, {useState} from 'react';
 import {
   StyleSheet,
+  SafeAreaView,
   View,
   Image,
   Text,
   useWindowDimensions,
   Pressable,
 } from 'react-native';
-import i18n from 'i18n-js';
+import {useForm} from 'react-hook-form';
+import {useNavigation} from '@react-navigation/native';
 
+import i18n from 'i18n-js';
 import Logo from './../../../assets/images/Logo2.png';
 import IconInput from '../../components/IconInput';
 import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
+import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../../../Colors';
 
 const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
   const {height} = useWindowDimensions();
 
-  const onSignInPressed = () => {
-    console.warn('Login');
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
+
+  const navigation = useNavigation();
+
+  const onSignInPressed = data => {
+    //validate User
+    console.log(data);
+
+    navigation.navigate('HomeScreen');
   };
 
   const onCreateAccount = () => {
-    console.warn('Account Create');
+    navigation.navigate('SignUp');
   };
 
   const onSignInFacebook = () => {
@@ -42,71 +54,78 @@ const SignIn = () => {
   };
 
   const onForgotPasswordPressed = () => {
-    console.warn('Forgot Password');
+    navigation.navigate('ForgotPassword');
   };
 
   return (
-    <View style={styles.root}>
-      <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
-      <View style={styles.container}>
-        <View style={{marginTop: '12%'}}>
-          <IconInput
-            placeholder={i18n.t('username')}
-            value={username}
-            setValue={setUsername}
-          />
+    <LinearGradient colors={['#1D1879', '#393289']} style={{flex: 1}}>
+      <SafeAreaView style={styles.root}>
+        <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
+        <View style={styles.container}>
+          <View style={{marginTop: '12%'}}>
+            <IconInput
+              name={'username'}
+              placeholder={i18n.t('username')}
+              control={control}
+              rules={{required: i18n.t('userNameRequired')}}
+            />
 
-          <IconInput
-            placeholder={i18n.t('password')}
-            value={password}
-            setValue={setPassword}
-            secureTextEntry
-          />
+            <IconInput
+              name={'password'}
+              placeholder={i18n.t('password')}
+              control={control}
+              secureTextEntry
+              rules={{
+                required: i18n.t('passwordRequired'),
+                minLength: {value: 3, message: i18n.t('passwordToShort')},
+              }}
+            />
 
-          <PressableText
-            text={i18n.t('forgotPassword')}
-            onPress={onForgotPasswordPressed}
-            align={'flex-end'}
-          />
+            <PressableText
+              text={i18n.t('forgotPassword')}
+              onPress={onForgotPasswordPressed}
+              align={'flex-end'}
+            />
 
-          <CustomButton
-            text={i18n.t('SignIn')}
-            onPress={onSignInPressed}
-            type={'PRIMARY'}
-          />
+            <CustomButton
+              text={i18n.t('SignIn')}
+              onPress={handleSubmit(onSignInPressed)}
+              type={'PRIMARY'}
+            />
 
-          <Pressable style={styles.signUp} onPress={onCreateAccount}>
-            <Text style={styles.text}>{i18n.t('createAccount')}</Text>
-            <Text style={styles.textMarked}>{i18n.t('SignUp')}</Text>
-          </Pressable>
+            <Pressable style={styles.signUp} onPress={onCreateAccount}>
+              <Text style={styles.text}>{i18n.t('createAccount')}</Text>
+              <Text style={styles.textMarked}>{i18n.t('SignUp')}</Text>
+            </Pressable>
+          </View>
+
+          <View style={{marginTop: '18%'}}>
+            <CustomButton
+              text={i18n.t('signInFacebook')}
+              onPress={onSignInFacebook}
+              type={'TERTIARY'}
+              iconButton
+              iconName={'facebook'}
+            />
+            <CustomButton
+              text={i18n.t('signInGoogle')}
+              onPress={onSignInGoogle}
+              type={'TERTIARY'}
+              iconButton
+              iconName={'google'}
+            />
+            <CustomButton
+              text={i18n.t('signInApple')}
+              onPress={onSignInApple}
+              type={'TERTIARY'}
+              iconButton
+              iconName={'apple'}
+            />
+          </View>
         </View>
-
-        <View style={{marginTop: '18%'}}>
-          <CustomButton
-            text={i18n.t('signInFacebook')}
-            onPress={onSignInFacebook}
-            type={'TERTIARY'}
-            iconButton
-            iconName={'facebook'}
-          />
-          <CustomButton
-            text={i18n.t('signInGoogle')}
-            onPress={onSignInGoogle}
-            type={'TERTIARY'}
-            iconButton
-            iconName={'google'}
-          />
-          <CustomButton
-            text={i18n.t('signInApple')}
-            onPress={onSignInApple}
-            type={'TERTIARY'}
-            iconButton
-            iconName={'apple'}
-          />
-        </View>
-      </View>
-      <Text style={styles.credentials}>{'©Workplaner - 2022'}</Text>
-    </View>
+        <Text style={styles.credentials}>{'©Workplaner - 2022'}</Text>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
@@ -143,7 +162,7 @@ const styles = StyleSheet.create({
   },
   credentials: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 25,
     color: Colors.white,
   },
 });

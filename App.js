@@ -1,14 +1,16 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import i18n from 'i18n-js';
+import {StyleSheet, View} from 'react-native';
 import {de, en} from './i18n/supportedLanguages';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {configureFontAwesomePro} from 'react-native-fontawesome-pro';
 
-import SignIn from './src/screens/signIn/SignIn';
-import Colors from './Colors';
-import LinearGradient from 'react-native-linear-gradient';
+import i18n from 'i18n-js';
+import Navigation from './src/navigation';
+import RNBootSplash from 'react-native-bootsplash';
 
 import * as RNLocalize from 'react-native-localize';
 
+configureFontAwesomePro();
 i18n.locale = RNLocalize.getLocales()[0].languageCode;
 
 switch (i18n.locale) {
@@ -26,12 +28,16 @@ switch (i18n.locale) {
 }
 
 const App = () => {
+  React.useEffect(() => {
+    setTimeout(() => {
+      RNBootSplash.hide();
+    }, 1000);
+  }, []);
+
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={styles.root}>
-      <SafeAreaView>
-        <SignIn />
-      </SafeAreaView>
-    </LinearGradient>
+    <View colors={['#1D1879', '#393289']} style={styles.root}>
+      <Navigation />
+    </View>
   );
 };
 

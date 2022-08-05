@@ -1,7 +1,9 @@
+import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import {Icon} from '@rneui/themed';
 
-import React from 'react';
+//import Icon from 'react-native-fontawesome-pro';
 import Colors from '../../Colors';
 
 const CustomButton = ({onPress, text, type, iconButton, iconName}) => {
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 8,
   },
-  container_PRIMARY: {backgroundColor: '#F23838'},
+  container_PRIMARY: {backgroundColor: Colors.primary},
   container_TERTIARY: {backgroundColor: Colors.iconBackgroundColor},
   text: {
     color: Colors.white,
