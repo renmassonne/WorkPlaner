@@ -1,16 +1,19 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {de, en} from './i18n/supportedLanguages';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {configureFontAwesomePro} from 'react-native-fontawesome-pro';
+import {Amplify, Auth} from 'aws-amplify';
 
 import i18n from 'i18n-js';
+import awsconfig from './src/aws-exports';
 import Navigation from './src/navigation';
 import RNBootSplash from 'react-native-bootsplash';
 
 import * as RNLocalize from 'react-native-localize';
 
 configureFontAwesomePro();
+Amplify.configure(awsconfig);
+
 i18n.locale = RNLocalize.getLocales()[0].languageCode;
 
 switch (i18n.locale) {

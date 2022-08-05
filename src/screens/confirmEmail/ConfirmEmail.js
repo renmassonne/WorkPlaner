@@ -7,38 +7,54 @@ import {
   Text,
   useWindowDimensions,
   TouchableOpacity,
+  Alert,
+  Button,
 } from 'react-native';
 import {Icon} from '@rneui/themed';
+import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import i18n from 'i18n-js';
 import Logo from './../../../assets/images/Logo2.png';
+import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
 import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
 import LinearGradient from 'react-native-linear-gradient';
-import Colors from '../../../Colors';
 
 const ConfirmEmail = () => {
-  const {control, handleSubmit} = useForm();
+  const route = useRoute();
+
+  const {control, handleSubmit, watch} = useForm({
+    defaultValues: {username: route?.params?.username},
+  });
+
+  const userName = watch('username');
+  const navigation = useNavigation();
 
   const {height} = useWindowDimensions();
 
-  const navigation = useNavigation();
+  const [newVeriCodeSend, setNewVeriCodeSend] = useState(false);
 
-  const onConfirmPressed = () => {
-    //Validation
-
-    navigation.navigate('SignIn');
+  const onConfirmPressed = async data => {
+    try {
+      await Auth.confirmSignUp(data.username, data.verificationCode);
+      navigation.navigate('SignIn');
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
   };
 
-  const onResendCodePressed = () => {
-    console.warn('onResendCodePressed');
-  };
+  const onResendCodePressed = async data => {
+    try {
+      await Auth.resendSignUp(userName);
+      setNewVeriCodeSend(true);
 
-  const onSendCodeWithSMS = () => {
-    console.warn('onSendCodeWithSMS');
+      Alert.alert(i18n.t('newVeriCode'));
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
   };
 
   const onGoBackSignIn = () => {
@@ -87,10 +103,6 @@ const ConfirmEmail = () => {
               <PressableText
                 text={i18n.t('resendCode')}
                 onPress={onResendCodePressed}
-              />
-              <PressableText
-                text={i18n.t('sendSmsCode')}
-                onPress={onSendCodeWithSMS}
               />
             </View>
           </View>

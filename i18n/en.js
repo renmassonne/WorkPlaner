@@ -1,4 +1,5 @@
 const en = {
+  fullname: 'Fullname',
   username: 'Username',
   password: 'Password',
   confirmPassword: 'Confirm Password',
@@ -23,12 +24,14 @@ const en = {
   sendSmsCode: 'Send SMS',
   resetPassword: 'Reset your Password',
   userNameRequired: 'Username is required',
+  fullNameRequired: 'Fullname is required',
   emailRequired: 'E-Mail is required',
   emailInvalid: 'E-Mail is Invalid',
   passwordRequired: 'Password is required',
   passwordToShort: 'Password should be minimum 3 characters long',
   userNameToShort: 'Username should be minimum 3 characters long',
   userNameToLong: 'Username should be maximum 3 characters long',
+  newVeriCode: 'A new confirmation code has been sent to you',
 };
 
 export {en};

@@ -7,6 +7,7 @@ import {
   Text,
   useWindowDimensions,
   Pressable,
+  Alert,
 } from 'react-native';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
@@ -18,6 +19,7 @@ import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
 import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../../../Colors';
+import {Auth} from 'aws-amplify';
 
 const SignIn = () => {
   const {height} = useWindowDimensions();
@@ -28,13 +30,27 @@ const SignIn = () => {
     formState: {errors},
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
 
-  const onSignInPressed = data => {
-    //validate User
-    console.log(data);
+  const onSignInPressed = async data => {
+    //navigation.navigate('HomeScreen');
 
-    navigation.navigate('HomeScreen');
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await Auth.signIn(data.username, data.password);
+      console.log(response);
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
+
+    setLoading(false);
   };
 
   const onCreateAccount = () => {

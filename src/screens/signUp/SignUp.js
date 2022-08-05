@@ -8,8 +8,10 @@ import {
   useWindowDimensions,
   Pressable,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Icon} from '@rneui/themed';
+import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
@@ -32,8 +34,21 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  const onRegisterPressed = data => {
-    navigation.navigate('ConfirmEmail');
+  const onRegisterPressed = async data => {
+    //navigation.navigate('ConfirmEmail');
+    const {username, password, email, name} = data;
+
+    try {
+      await Auth.signUp({
+        username,
+        password,
+        attributes: {preferred_username: username, email, name},
+      });
+
+      navigation.navigate('ConfirmEmail', {username});
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
   };
 
   const onGoBackSignIn = () => {
@@ -55,6 +70,15 @@ const SignIn = () => {
         <View style={styles.container}>
           <Text style={styles.title}>{i18n.t('signUpHeader')}</Text>
           <View style={{marginTop: '4%'}}>
+            <IconInput
+              name={'name'}
+              placeholder={i18n.t('fullname')}
+              control={control}
+              rules={{
+                required: i18n.t('fullNameRequired'),
+              }}
+            />
+
             <IconInput
               name={'username'}
               placeholder={i18n.t('username')}

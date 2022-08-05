@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-workplaner-staging-191422-authRole",
+      "UnauthRoleArn": "arn:aws:iam::287473766788:role/amplify-workplaner-staging-191422-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::287473766788:role/amplify-workplaner-staging-191422-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-workplaner-staging-191422-deployment",
+      "UnauthRoleName": "amplify-workplaner-staging-191422-unauthRole",
+      "StackName": "amplify-workplaner-staging-191422",
+      "StackId": "arn:aws:cloudformation:eu-west-2:287473766788:stack/amplify-workplaner-staging-191422/d025e920-14f2-11ed-acf2-0a2f1a7e92c0",
+      "AmplifyAppId": "d35a36y31idh84"
+    },
+    "categories": {
+      "auth": {
+        "WorkPlaner": {}
+      }
+    }
+  }
+}
