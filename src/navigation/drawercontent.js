@@ -11,7 +11,7 @@ import i18n from 'i18n-js';
 const win = Dimensions.get('window');
 
 export function DrawerContent(props) {
-  console.log(props.username);
+  //console.log(props.username);
   return (
     <SafeAreaView style={[styles.container, {height: win.height - 128}]}>
       <View>
@@ -46,12 +46,28 @@ export function DrawerContent(props) {
             label={i18n.t('homeScreen.homescreen')}
             labelStyle={styles.text}
             onPress={() => {
-              navigateTo(props.navigation, 'Home-Screen');
+              navigateTo(props.navigation, 'HomeScreen');
             }}
             style={styles.margin0}
             icon={() => (
               <Icon
                 name={'home'}
+                type="font-awesome-5"
+                iconStyle={{color: Colors.white}}
+                size={24}
+              />
+            )}
+          />
+          <DrawerItem
+            label={i18n.t('Calendar.Calendar')}
+            labelStyle={styles.text}
+            onPress={() => {
+              navigateTo(props.navigation, 'Calendar');
+            }}
+            style={styles.margin0}
+            icon={() => (
+              <Icon
+                name={'calendar'}
                 type="font-awesome-5"
                 iconStyle={{color: Colors.white}}
                 size={24}

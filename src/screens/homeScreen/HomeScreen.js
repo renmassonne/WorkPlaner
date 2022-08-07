@@ -1,14 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 import Layout from '../../components/Layout';
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
-
   return (
-    <Layout navigation={navigation}>
+    <Layout>
       <View>
         <Text>Test</Text>
       </View>

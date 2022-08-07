@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {DrawerContent} from './drawercontent';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import Colors from '../../Colors';
-import {DrawerContent} from './drawercontent';
 import HomeScreen from '../screens/homeScreen/HomeScreen';
+import Calendar from '../screens/calendar/Calendar';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +25,7 @@ export default class DrawerNavigator extends React.Component {
           component={HomeScreen}
           username={this.props.username}
         />
+        <Drawer.Screen name="Calendar" component={Calendar} />
       </Drawer.Navigator>
     );
   }

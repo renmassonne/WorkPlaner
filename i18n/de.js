@@ -32,13 +32,16 @@ const de = {
   userNameToShort: 'Benutzname sollte minimum 3 Zeichen beinhalten',
   userNameToLong: 'Benutzname sollte maximum 12 Zeichen beinhalten',
   newVeriCode: 'Ein neuer Bestätigungscode wurde dir zugeschickt',
-  homeScreen: {
-    homescreen: 'Startseite',
-  },
   SideDrawer: {
     homeScreen: 'Startseite',
     settings: 'Einstellungen',
     logOut: 'Ausloggen',
+  },
+  homeScreen: {
+    homescreen: 'Startseite',
+  },
+  Calendar: {
+    Calendar: 'Kalendar',
   },
 };
 

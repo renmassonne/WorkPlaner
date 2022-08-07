@@ -30,6 +30,8 @@
     "react-hook-form": "^7.34.0",
     "react-native": "0.69.3",
     "react-native-bootsplash": "^4.2.3",
+    "react-native-calendars": "^1.1286.0",
+    "react-native-floating-action": "^1.22.0",
     "react-native-fontawesome-pro": "^2.1.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-linear-gradient": "^2.6.2",

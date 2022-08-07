@@ -4,6 +4,8 @@ const Colors = {
   white: '#FFFFFF',
   link: '#F28241',
   primary: '#F23838',
+  backgroundColor: '#1D1879',
+  calendarText: '#1D1879',
 };
 
 export default Colors;

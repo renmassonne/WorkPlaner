@@ -32,13 +32,16 @@ const en = {
   userNameToShort: 'Username should be minimum 3 characters long',
   userNameToLong: 'Username should be maximum 3 characters long',
   newVeriCode: 'A new confirmation code has been sent to you',
-  homeScreen: {
-    homeScreen: 'Home',
-  },
   SideDrawer: {
     homeScreen: 'Home',
     settings: 'Settings',
     logOut: 'Sign Out',
+  },
+  homeScreen: {
+    homeScreen: 'Home',
+  },
+  Calendar: {
+    Calendar: 'Calendar',
   },
 };
 
