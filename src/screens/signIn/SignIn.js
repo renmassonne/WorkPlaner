@@ -44,8 +44,8 @@ const SignIn = () => {
     setLoading(true);
 
     try {
-      const response = await Auth.signIn(data.username, data.password);
-      console.log(response);
+      await Auth.signIn(data.username, data.password);
+      navigation.navigate('DrawerNavigator');
     } catch (e) {
       Alert.alert('Oops', e.message);
     }

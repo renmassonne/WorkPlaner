@@ -1,6 +1,6 @@
 import {StyleSheet, Text, Pressable} from 'react-native';
 import React from 'react';
-import {Colors} from 'react-native-paper';
+import Colors from '../../Colors';
 
 const PressableText = ({onPress, text, align}) => {
   return (

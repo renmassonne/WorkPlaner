@@ -1,12 +1,18 @@
 import React from 'react';
-import {StyleSheet, Text, SafeAreaView} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {StyleSheet, Text, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
+import Layout from '../../components/Layout';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={{flex: 1}}>
-      <SafeAreaView style={styles.root}></SafeAreaView>
-    </LinearGradient>
+    <Layout navigation={navigation}>
+      <View>
+        <Text>Test</Text>
+      </View>
+    </Layout>
   );
 };
 
