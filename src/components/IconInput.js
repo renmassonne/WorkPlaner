@@ -55,12 +55,11 @@ export default IconInput;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    padding: 12,
     marginVertical: '2%',
     backgroundColor: Colors.iconBackgroundColor,
     borderWidth: 0.5,
     borderColor: Colors.white,
     borderRadius: 6,
   },
-  input: {fontSize: 16, color: Colors.white},
+  input: {padding: '3%', fontSize: 16, color: Colors.white},
 });

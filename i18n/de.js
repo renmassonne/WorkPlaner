@@ -42,6 +42,9 @@ const de = {
   },
   Calendar: {
     Calendar: 'Kalendar',
+    name: 'Name',
+    description: 'Beschreibung',
+    date: 'Datum',
   },
 };
 

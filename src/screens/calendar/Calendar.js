@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Card, Icon} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
+import {BottomSheet} from '@rneui/themed';
 
 import Colors from '../../../Colors';
-import {Icon} from '@rneui/base';
 import FloatingActionButton from '../../components/FloatingActionButton';
+import CustomInput from '../../components/CustomInput';
+import I18n from 'i18n-js';
+import DatePicker from '../../components/Picker/DatePicker';
+import PickerInput from '../../components/Picker/PickerInput';
 
 const timeToString = time => {
   const date = new Date(time);
@@ -13,6 +18,12 @@ const timeToString = time => {
 
 const Calendar = () => {
   const [items, setItems] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(new Date());
 
   const loadItems = day => {
     setTimeout(() => {
@@ -23,11 +34,11 @@ const Calendar = () => {
         if (!items[strTime]) {
           items[strTime] = [];
 
-          const numItems = Math.floor(Math.random() * 3 + 1);
+          const numItems = Math.floor(Math.random() * 2 + 1);
           for (let j = 0; j < numItems; j++) {
             items[strTime].push({
               name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
+              description: 'Test',
               day: strTime,
             });
           }
@@ -42,6 +53,40 @@ const Calendar = () => {
     }, 1000);
   };
 
+  const onSavePressed = () => {
+    items['2022-08-07'].push({
+      name: name,
+      description: description,
+      day: '2022-08-07',
+    });
+
+    setIsVisible(false);
+    setName('');
+    setDescription('');
+  };
+
+  const renderItem = item => {
+    return (
+      <TouchableOpacity style={{marginTop: '2%'}}>
+        <Card>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}>
+            <Card.Title>{item.name}</Card.Title>
+            <View>
+              <Text>{item.description}</Text>
+            </View>
+          </View>
+        </Card>
+      </TouchableOpacity>
+    );
+  };
+
+  console.log(date);
+
   return (
     <View style={styles.container}>
       <Agenda
@@ -54,7 +99,7 @@ const Calendar = () => {
           monthTextColor: Colors.white,
           todayTextColor: Colors.primary,
           selectedDayBackgroundColor: Colors.iconBackgroundColor,
-          indicatorColor: Colors.primary,
+          indicatorColor: Colors.backgroundColor,
           dotColor: Colors.primary,
           agendaKnobColor: Colors.white,
 
@@ -62,22 +107,84 @@ const Calendar = () => {
           agendaDayNumColor: Colors.calendarText,
           agendaTodayColor: Colors.primary,
         }}
+        renderItem={renderItem}
       />
+      <BottomSheet
+        isVisible={isVisible}
+        onBackdropPress={() => setIsVisible(false)}>
+        <View style={styles.addWrapper}>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}>
+            <Text
+              style={{
+                fontSize: 26,
+                fontWeight: '600',
+                color: Colors.white,
+                marginRight: '25%',
+              }}>
+              Add Task
+            </Text>
+            <TouchableOpacity style={styles.saveButton} onPress={onSavePressed}>
+              <Icon
+                name={'save'}
+                type="font-awesome-5"
+                iconStyle={{color: 'white'}}
+                size={22}
+              />
+            </TouchableOpacity>
+          </View>
 
-      <View style={{position: 'absolute', right: 25, bottom: 25}}>
-        <FloatingActionButton
-          buttonSize={70}
-          iconSize={24}
-          singleButtonMode={true}
-          showAddButton={[true, 1]}
-          distanceToEdge={0}
-          onPressItem={button => {
-            if (button == 'btn_add') {
-              console.log('Coming Soon');
-            }
-          }}
-        />
-      </View>
+          <View style={styles.innerWrapper}>
+            <CustomInput
+              placeholder={I18n.t('Calendar.name')}
+              value={name}
+              onChange={value => setName(value)}
+            />
+            <CustomInput
+              placeholder={I18n.t('Calendar.description')}
+              value={description}
+              onChange={value => setDescription(value)}
+              multiline
+            />
+
+            <PickerInput
+              value={''}
+              placeholder={I18n.t('Calendar.date')}
+              onPress={() => setIsDatePickerVisible(true)}
+            />
+
+            {isDatePickerVisible && (
+              <DatePicker
+                value={date}
+                locale={I18n.locale}
+                onChange={(event, date) => setDate(date)}
+              />
+            )}
+          </View>
+        </View>
+      </BottomSheet>
+
+      {!isVisible && (
+        <View style={{position: 'absolute', right: 25, bottom: 25}}>
+          <FloatingActionButton
+            type={'add'}
+            buttonSize={70}
+            iconSize={24}
+            distanceToEdge={0}
+            distanceToHorizont={0}
+            onPressMain={button => {
+              if (button) {
+                setIsVisible(true);
+              }
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -89,5 +196,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundColor,
     paddingTop: '10%',
+  },
+  addWrapper: {
+    flex: 1,
+    height: 600,
+    backgroundColor: Colors.backgroundColor_light,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingVertical: '4%',
+    paddingHorizontal: '4%',
+  },
+  innerWrapper: {
+    paddingHorizontal: '6%',
+    paddingBottom: '6%',
+    paddingTop: '4%',
+  },
+  saveButton: {
+    backgroundColor: Colors.primary,
+    padding: '4%',
+    alignSelf: 'flex-end',
+    borderRadius: 50,
   },
 });

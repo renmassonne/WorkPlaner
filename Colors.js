@@ -5,6 +5,7 @@ const Colors = {
   link: '#F28241',
   primary: '#F23838',
   backgroundColor: '#1D1879',
+  backgroundColor_light: '#393289',
   calendarText: '#1D1879',
 };
 

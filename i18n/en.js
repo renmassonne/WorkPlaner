@@ -42,6 +42,9 @@ const en = {
   },
   Calendar: {
     Calendar: 'Calendar',
+    name: 'Name',
+    description: 'Description',
+    date: 'Date',
   },
 };
 

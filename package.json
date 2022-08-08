@@ -15,6 +15,7 @@
     "@fortawesome/pro-regular-svg-icons": "^6.1.2",
     "@fortawesome/pro-solid-svg-icons": "^6.1.2",
     "@react-native-async-storage/async-storage": "^1.17.7",
+    "@react-native-community/datetimepicker": "^6.3.1",
     "@react-native-community/netinfo": "^9.3.0",
     "@react-native-picker/picker": "^2.4.3",
     "@react-navigation/drawer": "^6.4.3",
