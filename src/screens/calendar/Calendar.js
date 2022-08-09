@@ -22,47 +22,48 @@ const Calendar = () => {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   const [name, setName] = useState('');
+  const [isNameEmpty, setIsNameEmpty] = useState(false);
+
   const [description, setDescription] = useState('');
+  const [isDescriptionEmpty, setIsDescriptionEmpty] = useState(false);
+
   const [date, setDate] = useState(new Date());
 
   const loadItems = day => {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
+    for (let i = -15; i < 85; i++) {
+      const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+      const strTime = timeToString(time);
 
-        if (!items[strTime]) {
-          items[strTime] = [];
-
-          const numItems = Math.floor(Math.random() * 2 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              description: 'Test',
-              day: strTime,
-            });
-          }
-        }
+      if (!items[strTime]) {
+        items[strTime] = [];
       }
+    }
 
-      const newItems = {};
-      Object.keys(items).forEach(key => {
-        newItems[key] = items[key];
-      });
-      setItems(newItems);
-    }, 1000);
+    const newItems = {};
+    Object.keys(items).forEach(key => {
+      newItems[key] = items[key];
+    });
+    setItems(newItems);
   };
 
   const onSavePressed = () => {
-    items['2022-08-07'].push({
+    console.log(description);
+
+    var isFormattedDate = timeToString(date);
+
+    items[isFormattedDate].push({
       name: name,
       description: description,
-      day: '2022-08-07',
+      day: isFormattedDate,
     });
 
     setIsVisible(false);
+    setIsDatePickerVisible(false);
+
     setName('');
+    setIsNameEmpty(false);
     setDescription('');
+    setIsDescriptionEmpty(false);
   };
 
   const renderItem = item => {
@@ -77,15 +78,13 @@ const Calendar = () => {
             }}>
             <Card.Title>{item.name}</Card.Title>
             <View>
-              <Text>{item.description}</Text>
+              <Text multiline>{item.description}</Text>
             </View>
           </View>
         </Card>
       </TouchableOpacity>
     );
   };
-
-  console.log(date);
 
   return (
     <View style={styles.container}>
@@ -144,25 +143,36 @@ const Calendar = () => {
               placeholder={I18n.t('Calendar.name')}
               value={name}
               onChange={value => setName(value)}
+              isEmpty={isNameEmpty}
             />
             <CustomInput
               placeholder={I18n.t('Calendar.description')}
               value={description}
               onChange={value => setDescription(value)}
+              isEmpty={isDescriptionEmpty}
               multiline
             />
 
             <PickerInput
-              value={''}
+              value={date.toLocaleDateString()}
               placeholder={I18n.t('Calendar.date')}
-              onPress={() => setIsDatePickerVisible(true)}
+              onPress={() => {
+                if (isDatePickerVisible) {
+                  setIsDatePickerVisible(false);
+                } else {
+                  setIsDatePickerVisible(true);
+                }
+              }}
             />
 
             {isDatePickerVisible && (
               <DatePicker
                 value={date}
                 locale={I18n.locale}
-                onChange={(event, date) => setDate(date)}
+                onChange={(event, date) => {
+                  setDate(date);
+                  setIsDatePickerVisible(false);
+                }}
               />
             )}
           </View>
@@ -212,9 +222,11 @@ const styles = StyleSheet.create({
     paddingTop: '4%',
   },
   saveButton: {
+    position: 'relative',
     backgroundColor: Colors.primary,
     padding: '4%',
     alignSelf: 'flex-end',
     borderRadius: 50,
+    zIndex: 99,
   },
 });

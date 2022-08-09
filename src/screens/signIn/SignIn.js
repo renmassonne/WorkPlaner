@@ -9,6 +9,7 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
+import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
@@ -19,7 +20,6 @@ import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
 import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../../../Colors';
-import {Auth} from 'aws-amplify';
 
 const SignIn = () => {
   const {height} = useWindowDimensions();
