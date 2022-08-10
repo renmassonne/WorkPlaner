@@ -15,7 +15,6 @@ const CustomInput = ({placeholder, onChange, value, multiline, isEmpty}) => {
             styles.input,
             {
               paddingTop: multiline ? '3%' : '3%',
-              borderColor: isEmpty ? Colors.primary : Colors.white,
             },
           ]}
           clearButtonMode={'always'}
@@ -44,6 +43,7 @@ const styles = StyleSheet.create({
     marginVertical: '2%',
     backgroundColor: Colors.iconBackgroundColor,
     borderWidth: 0.5,
+    borderColor: Colors.white,
     borderRadius: 6,
   },
   input: {color: Colors.white, fontSize: 16, padding: '3%'},

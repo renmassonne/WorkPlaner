@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {Card, Icon} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
 import {BottomSheet} from '@rneui/themed';
@@ -22,11 +22,7 @@ const Calendar = () => {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   const [name, setName] = useState('');
-  const [isNameEmpty, setIsNameEmpty] = useState(false);
-
   const [description, setDescription] = useState('');
-  const [isDescriptionEmpty, setIsDescriptionEmpty] = useState(false);
-
   const [date, setDate] = useState(new Date());
 
   const loadItems = day => {
@@ -47,28 +43,36 @@ const Calendar = () => {
   };
 
   const onSavePressed = () => {
-    console.log(description);
-
     var isFormattedDate = timeToString(date);
 
+    var index = Math.random() * 10000;
+
     items[isFormattedDate].push({
+      id: index,
       name: name,
       description: description,
       day: isFormattedDate,
     });
 
+    index += 1;
+
     setIsVisible(false);
     setIsDatePickerVisible(false);
 
     setName('');
-    setIsNameEmpty(false);
     setDescription('');
-    setIsDescriptionEmpty(false);
+  };
+
+  const onDeleteItem = id => {
+    Alert.alert('Coming Soon');
   };
 
   const renderItem = item => {
     return (
-      <TouchableOpacity style={{marginTop: '2%'}}>
+      <TouchableOpacity
+        style={{marginTop: '2%'}}
+        onPress={() => Alert.alert('DetailView coming Soon')}
+        onLongPress={() => onDeleteItem(item.id)}>
         <Card>
           <View
             style={{
@@ -110,7 +114,8 @@ const Calendar = () => {
       />
       <BottomSheet
         isVisible={isVisible}
-        onBackdropPress={() => setIsVisible(false)}>
+        onBackdropPress={() => setIsVisible(false)}
+        scrollViewProps={{scrollEnabled: false}}>
         <View style={styles.addWrapper}>
           <View
             style={{
@@ -142,14 +147,14 @@ const Calendar = () => {
             <CustomInput
               placeholder={I18n.t('Calendar.name')}
               value={name}
-              onChange={value => setName(value)}
-              isEmpty={isNameEmpty}
+              onChange={value => {
+                setName(value);
+              }}
             />
             <CustomInput
               placeholder={I18n.t('Calendar.description')}
               value={description}
               onChange={value => setDescription(value)}
-              isEmpty={isDescriptionEmpty}
               multiline
             />
 
@@ -222,11 +227,9 @@ const styles = StyleSheet.create({
     paddingTop: '4%',
   },
   saveButton: {
-    position: 'relative',
     backgroundColor: Colors.primary,
     padding: '4%',
     alignSelf: 'flex-end',
     borderRadius: 50,
-    zIndex: 99,
   },
 });
