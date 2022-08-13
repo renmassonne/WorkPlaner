@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {Card, Icon} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
 import {BottomSheet} from '@rneui/themed';
 
 import Colors from '../../../Colors';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import CustomInput from '../../components/CustomInput';
 import I18n from 'i18n-js';
 import DatePicker from '../../components/Picker/DatePicker';
 import PickerInput from '../../components/Picker/PickerInput';
+import CalendarDetail from './calendarDetail/CalendarDetail';
 
 const timeToString = time => {
   const date = new Date(time);
@@ -17,6 +19,8 @@ const timeToString = time => {
 };
 
 const Calendar = () => {
+  const refRBSheet = useRef();
+
   const [items, setItems] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
@@ -56,8 +60,9 @@ const Calendar = () => {
 
     index += 1;
 
-    setIsVisible(false);
     setIsDatePickerVisible(false);
+
+    refRBSheet.current.close();
 
     setName('');
     setDescription('');
@@ -71,7 +76,7 @@ const Calendar = () => {
     return (
       <TouchableOpacity
         style={{marginTop: '2%'}}
-        onPress={() => Alert.alert('DetailView coming Soon')}
+        onPress={() => refRBSheet.current.open()}
         onLongPress={() => onDeleteItem(item.id)}>
         <Card>
           <View
@@ -112,94 +117,93 @@ const Calendar = () => {
         }}
         renderItem={renderItem}
       />
-      <BottomSheet
-        isVisible={isVisible}
-        onBackdropPress={() => setIsVisible(false)}
-        scrollViewProps={{scrollEnabled: false}}>
-        <View style={styles.addWrapper}>
-          <View
+
+      <RBSheet
+        ref={refRBSheet}
+        height={480}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        animationType={'slide'}
+        keyboardAvoidingViewEnabled={true}
+        customStyles={{
+          container: {
+            backgroundColor: Colors.backgroundColor_light,
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            paddingVertical: '4%',
+            paddingHorizontal: '4%',
+          },
+        }}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}>
+          <Text
             style={{
-              width: '100%',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
+              fontSize: 26,
+              fontWeight: '600',
+              color: Colors.white,
+              marginRight: '25%',
             }}>
-            <Text
-              style={{
-                fontSize: 26,
-                fontWeight: '600',
-                color: Colors.white,
-                marginRight: '25%',
-              }}>
-              Add Task
-            </Text>
-            <TouchableOpacity style={styles.saveButton} onPress={onSavePressed}>
-              <Icon
-                name={'save'}
-                type="font-awesome-5"
-                iconStyle={{color: 'white'}}
-                size={22}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.innerWrapper}>
-            <CustomInput
-              placeholder={I18n.t('Calendar.name')}
-              value={name}
-              onChange={value => {
-                setName(value);
-              }}
+            Add Task
+          </Text>
+          <TouchableOpacity style={styles.saveButton} onPress={onSavePressed}>
+            <Icon
+              name={'save'}
+              type="font-awesome-5"
+              iconStyle={{color: 'white'}}
+              size={22}
             />
-            <CustomInput
-              placeholder={I18n.t('Calendar.description')}
-              value={description}
-              onChange={value => setDescription(value)}
-              multiline
-            />
-
-            <PickerInput
-              value={date.toLocaleDateString()}
-              placeholder={I18n.t('Calendar.date')}
-              onPress={() => {
-                if (isDatePickerVisible) {
-                  setIsDatePickerVisible(false);
-                } else {
-                  setIsDatePickerVisible(true);
-                }
-              }}
-            />
-
-            {isDatePickerVisible && (
-              <DatePicker
-                value={date}
-                locale={I18n.locale}
-                onChange={(event, date) => {
-                  setDate(date);
-                  setIsDatePickerVisible(false);
-                }}
-              />
-            )}
-          </View>
+          </TouchableOpacity>
         </View>
-      </BottomSheet>
 
-      {!isVisible && (
-        <View style={{position: 'absolute', right: 25, bottom: 25}}>
-          <FloatingActionButton
-            type={'add'}
-            buttonSize={70}
-            iconSize={24}
-            distanceToEdge={0}
-            distanceToHorizont={0}
-            onPressMain={button => {
-              if (button) {
-                setIsVisible(true);
-              }
+        <View style={styles.innerWrapper}>
+          <CustomInput
+            placeholder={I18n.t('Calendar.name')}
+            value={name}
+            onChange={value => {
+              setName(value);
             }}
           />
+          <CustomInput
+            placeholder={I18n.t('Calendar.description')}
+            value={description}
+            onChange={value => setDescription(value)}
+            multiline
+          />
+
+          <PickerInput
+            value={date.toLocaleDateString()}
+            placeholder={I18n.t('Calendar.date')}
+            onPress={() => setIsDatePickerVisible(!isDatePickerVisible)}
+          />
+
+          {isDatePickerVisible && (
+            <DatePicker
+              value={date}
+              locale={I18n.locale}
+              onChange={(event, date) => {
+                setDate(date);
+                setIsDatePickerVisible(false);
+              }}
+            />
+          )}
         </View>
-      )}
+      </RBSheet>
+
+      <View style={{position: 'absolute', right: 25, bottom: 25}}>
+        <FloatingActionButton
+          type={'add'}
+          buttonSize={70}
+          iconSize={24}
+          distanceToEdge={0}
+          distanceToHorizont={0}
+          onPressMain={() => refRBSheet.current.open()}
+        />
+      </View>
     </View>
   );
 };

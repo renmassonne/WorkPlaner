@@ -16,7 +16,7 @@ import {useForm} from 'react-hook-form';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 import i18n from 'i18n-js';
-import Logo from './../../../assets/images/Logo2.png';
+import Logo from './../../../assets/images/Logo.png';
 import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
 import CustomButton from '../../components/CustomButton';
