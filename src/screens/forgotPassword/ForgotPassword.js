@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {
-  StyleSheet,
-  SafeAreaView,
   View,
   Image,
   Text,
+  Alert,
+  StyleSheet,
+  SafeAreaView,
   useWindowDimensions,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 import {Icon} from '@rneui/themed';
+import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
@@ -27,10 +28,15 @@ const ForgotPassword = () => {
 
   const navigation = useNavigation();
 
-  const onSubmitPressed = () => {
+  const onSubmitPressed = async data => {
     //Validation username exists
 
-    navigation.navigate('NewPassword');
+    try {
+      await Auth.forgotPassword(data.username, data.verificationCode);
+      navigation.navigate('NewPassword');
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
   };
 
   const onGoBackSignIn = () => {

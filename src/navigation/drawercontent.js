@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View, StyleSheet, Text, Dimensions} from 'react-native';
 import {Auth} from 'aws-amplify';
 import {Icon} from '@rneui/themed';
@@ -11,7 +11,20 @@ import i18n from 'i18n-js';
 const win = Dimensions.get('window');
 
 export function DrawerContent(props) {
-  //console.log(props.username);
+  const [user, setUser] = useState();
+
+  checkUser = async () => {
+    const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
+
+    if (!user) {
+      setUser(authUser);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  });
+
   return (
     <SafeAreaView style={[styles.container, {height: win.height - 128}]}>
       <View>
@@ -34,9 +47,11 @@ export function DrawerContent(props) {
       </View>
 
       <View style={styles.userInformation}>
-        <Text style={styles.text}>rmassonne</Text>
-        <Text style={styles.text} x>
-          r.massonne@gmx.de
+        <Text style={styles.text}>
+          {user ? user.attributes.name : 'Username'}
+        </Text>
+        <Text style={styles.text}>
+          {user ? user.attributes.email : 'Username'}
         </Text>
       </View>
 
@@ -66,12 +81,14 @@ export function DrawerContent(props) {
             }}
             style={styles.margin0}
             icon={() => (
-              <Icon
-                name={'calendar'}
-                type="font-awesome-5"
-                iconStyle={{color: Colors.white}}
-                size={24}
-              />
+              <View style={{marginLeft: '1.5%', marginRight: '1.5%'}}>
+                <Icon
+                  name={'calendar'}
+                  type="font-awesome-5"
+                  iconStyle={{color: Colors.white}}
+                  size={24}
+                />
+              </View>
             )}
           />
         </View>

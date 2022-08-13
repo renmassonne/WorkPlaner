@@ -32,6 +32,7 @@ const de = {
   userNameToShort: 'Benutzname sollte minimum 3 Zeichen beinhalten',
   userNameToLong: 'Benutzname sollte maximum 12 Zeichen beinhalten',
   newVeriCode: 'Ein neuer Bestätigungscode wurde dir zugeschickt',
+  saveLoginCredentials: 'Login speichern',
   SideDrawer: {
     homeScreen: 'Startseite',
     settings: 'Einstellungen',

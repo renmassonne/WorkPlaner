@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   StyleSheet,
   SafeAreaView,
   View,
@@ -18,6 +19,7 @@ import IconInput from '../../components/IconInput';
 import CustomButton from '../../components/CustomButton';
 import Colors from '../../../Colors';
 import LinearGradient from 'react-native-linear-gradient';
+import {Auth} from 'aws-amplify';
 
 const NewPassword = () => {
   const {control, handleSubmit, watch} = useForm();
@@ -28,10 +30,19 @@ const NewPassword = () => {
 
   const navigation = useNavigation();
 
-  const onSubmitPressed = () => {
+  const onSubmitPressed = async data => {
     //Validation
 
-    navigation.navigate('SignIn');
+    try {
+      await Auth.forgotPasswordSubmit(
+        data.username,
+        data.verificationCode,
+        data.password,
+      );
+      navigation.navigate('SignIn');
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
   };
 
   const onGoBackSignIn = () => {
@@ -53,6 +64,13 @@ const NewPassword = () => {
         <View style={styles.container}>
           <Text style={styles.title}>{i18n.t('resetPassword')}</Text>
           <View style={{marginTop: '8%'}}>
+            <IconInput
+              name={'username'}
+              placeholder={i18n.t('username')}
+              control={control}
+              rules={{required: i18n.t('userNameRequired')}}
+            />
+
             <IconInput
               name={'verificationCode'}
               placeholder={i18n.t('verificationCode')}

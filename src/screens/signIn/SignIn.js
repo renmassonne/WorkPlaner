@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   Pressable,
   Alert,
+  Switch,
 } from 'react-native';
 import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
@@ -21,6 +22,8 @@ import PressableText from '../../components/PressableText';
 import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../../../Colors';
 
+import * as secureStorage from '../../../global/storage/secureStorage';
+
 const SignIn = () => {
   const {height} = useWindowDimensions();
 
@@ -31,6 +34,8 @@ const SignIn = () => {
   } = useForm();
 
   const [loading, setLoading] = useState(false);
+
+  const [saveLogin, setSaveLogin] = useState(false);
 
   const navigation = useNavigation();
 
@@ -45,6 +50,19 @@ const SignIn = () => {
 
     try {
       await Auth.signIn(data.username, data.password);
+
+      await secureStorage.saveItemToSecureStorage(
+        'saveLogin',
+        saveLogin.toString(),
+      );
+
+      if (saveLogin) {
+        await secureStorage.saveItemToSecureStorage('username', data.username);
+        await secureStorage.saveItemToSecureStorage('password', data.password);
+      } else {
+        await deleteLoginData();
+      }
+
       navigation.navigate('DrawerNavigator');
     } catch (e) {
       Alert.alert('Oops', e.message);
@@ -97,11 +115,28 @@ const SignIn = () => {
               }}
             />
 
-            <PressableText
-              text={i18n.t('forgotPassword')}
-              onPress={onForgotPasswordPressed}
-              align={'flex-end'}
-            />
+            <View style={styles.loginContainer}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={[styles.text, {marginBottom: 8, marginTop: 2}]}>
+                  {i18n.t('saveLoginCredentials')}
+                </Text>
+                <Switch
+                  trackColor={{
+                    false: Colors.backgroundColor_light,
+                    true: Colors.primary,
+                  }}
+                  thumbColor={Colors.white}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={saveLoginSaved => setSaveLogin(saveLoginSaved)}
+                  value={saveLogin}
+                  style={{marginLeft: '4%', marginBottom: 8, marginTop: 2}}
+                />
+              </View>
+              <PressableText
+                text={i18n.t('forgotPassword')}
+                onPress={onForgotPasswordPressed}
+              />
+            </View>
 
             <CustomButton
               text={i18n.t('SignIn')}
@@ -154,6 +189,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: '2%',
   },
   container: {width: '100%', paddingHorizontal: '8%'},
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: '1%',
+  },
   logo: {
     resizeMode: 'contain',
     width: '100%',

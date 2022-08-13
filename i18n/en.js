@@ -32,6 +32,7 @@ const en = {
   userNameToShort: 'Username should be minimum 3 characters long',
   userNameToLong: 'Username should be maximum 3 characters long',
   newVeriCode: 'A new confirmation code has been sent to you',
+  saveLoginCredentials: 'Save Login',
   SideDrawer: {
     homeScreen: 'Home',
     settings: 'Settings',
