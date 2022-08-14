@@ -18,11 +18,6 @@ const Layout = props => {
     <LinearGradient colors={['#1D1879', '#393289']} style={styles.container}>
       <SafeAreaView>
         <View style={{paddingVertical: '6%'}}>
-          <View style={styles.innerContainer}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Image source={MenuIcon} style={styles.menuIcon} />
-            </TouchableOpacity>
-          </View>
           <View style={styles.content}>{props.children}</View>
         </View>
       </SafeAreaView>

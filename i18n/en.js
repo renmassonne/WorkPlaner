@@ -34,9 +34,11 @@ const en = {
   newVeriCode: 'A new confirmation code has been sent to you',
   saveLoginCredentials: 'Save Login',
   SideDrawer: {
-    homeScreen: 'Home',
+    home: 'Home',
+    calendar: 'Calendar',
     settings: 'Settings',
     logOut: 'Sign Out',
+    profile: 'Profile',
   },
   homeScreen: {
     homeScreen: 'Home',

@@ -10,6 +10,7 @@ const IconInput = ({
   rules = {},
   placeholder,
   secureTextEntry,
+  Value,
 }) => {
   return (
     <Controller

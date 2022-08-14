@@ -31,7 +31,10 @@ const SignIn = () => {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm();
+  } = useForm({defaultValues: {username: username, password: password}});
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
   const [loading, setLoading] = useState(false);
 
@@ -39,9 +42,27 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  const onSignInPressed = async data => {
-    //navigation.navigate('HomeScreen');
+  testFunction = async () => {
+    const loginSaved = await secureStorage.getItemFromSecureStorage(
+      'saveLogin',
+    );
 
+    if (loginSaved == 'true') {
+      setSaveLogin(true);
+
+      const userName = await secureStorage.getItemFromSecureStorage('username');
+      const Password = await secureStorage.getItemFromSecureStorage('password');
+
+      setUsername(userName);
+      setPassword(Password);
+    }
+  };
+
+  useEffect(() => {
+    testFunction();
+  });
+
+  const onSignInPressed = async data => {
     if (loading) {
       return;
     }
@@ -63,7 +84,7 @@ const SignIn = () => {
         await deleteLoginData();
       }
 
-      navigation.navigate('DrawerNavigator');
+      navigation.navigate('BottomTabNavigator');
     } catch (e) {
       Alert.alert('Oops', e.message);
     }
@@ -99,6 +120,7 @@ const SignIn = () => {
           <View style={{marginTop: '12%'}}>
             <IconInput
               name={'username'}
+              Value={username}
               placeholder={i18n.t('username')}
               control={control}
               rules={{required: i18n.t('userNameRequired')}}
@@ -107,6 +129,7 @@ const SignIn = () => {
             <IconInput
               name={'password'}
               placeholder={i18n.t('password')}
+              Value={password}
               control={control}
               secureTextEntry
               rules={{
@@ -194,6 +217,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: '1%',
+    marginTop: '1%',
   },
   logo: {
     resizeMode: 'contain',

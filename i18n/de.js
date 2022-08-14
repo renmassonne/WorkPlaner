@@ -34,9 +34,11 @@ const de = {
   newVeriCode: 'Ein neuer Bestätigungscode wurde dir zugeschickt',
   saveLoginCredentials: 'Login speichern',
   SideDrawer: {
-    homeScreen: 'Startseite',
+    home: 'Startseite',
+    calendar: 'Kalendar',
     settings: 'Einstellungen',
-    logOut: 'Ausloggen',
+    logOut: 'Sign Out',
+    profile: 'Profil',
   },
   homeScreen: {
     homescreen: 'Startseite',

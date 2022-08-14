@@ -1,5 +1,12 @@
 import React, {useState, useRef} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Platform,
+} from 'react-native';
 import {Card, Icon} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
 import {BottomSheet} from '@rneui/themed';
@@ -72,6 +79,27 @@ const Calendar = () => {
     Alert.alert('Coming Soon');
   };
 
+  const CustomTabButton = props => {
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={{
+        top: -20,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <View style={styles.customButton}>
+        <Icon
+          name={'home'}
+          type="font-awesome-5"
+          iconStyle={{
+            color: Colors.white,
+          }}
+          size={20}
+        />
+      </View>
+    </TouchableOpacity>;
+  };
+
   const renderItem = item => {
     return (
       <TouchableOpacity
@@ -102,6 +130,10 @@ const Calendar = () => {
         loadItemsForMonth={loadItems}
         theme={{
           calendarBackground: Colors.backgroundColor,
+          calendarOffset() {
+            const offset = Platform.OS === 'ios' ? 90 : 100;
+            return offset - this.viewHeight / 2;
+          },
           textSectionTitleColor: Colors.white,
           dayTextColor: Colors.white,
           monthTextColor: Colors.white,
@@ -110,7 +142,6 @@ const Calendar = () => {
           indicatorColor: Colors.backgroundColor,
           dotColor: Colors.primary,
           agendaKnobColor: Colors.white,
-
           agendaDayTextColor: Colors.primary,
           agendaDayNumColor: Colors.calendarText,
           agendaTodayColor: Colors.primary,
@@ -193,17 +224,6 @@ const Calendar = () => {
           )}
         </View>
       </RBSheet>
-
-      <View style={{position: 'absolute', right: 25, bottom: 25}}>
-        <FloatingActionButton
-          type={'add'}
-          buttonSize={70}
-          iconSize={24}
-          distanceToEdge={0}
-          distanceToHorizont={0}
-          onPressMain={() => refRBSheet.current.open()}
-        />
-      </View>
     </View>
   );
 };

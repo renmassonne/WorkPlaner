@@ -6,6 +6,7 @@ const Colors = {
   primary: '#F23838',
   backgroundColor: '#1D1879',
   backgroundColor_light: '#393289',
+  backgroundColor_lighter: '#393289CC',
   calendarText: '#1D1879',
 };
 
