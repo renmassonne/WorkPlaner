@@ -58,7 +58,7 @@ export function DrawerContent(props) {
       <View style={styles.wrapper}>
         <View>
           <DrawerItem
-            label={i18n.t('homeScreen.homescreen')}
+            label={i18n.t('SideDrawer.home')}
             labelStyle={styles.text}
             onPress={() => {
               navigateTo(props.navigation, 'HomeScreen');
@@ -74,7 +74,7 @@ export function DrawerContent(props) {
             )}
           />
           <DrawerItem
-            label={i18n.t('Calendar.Calendar')}
+            label={i18n.t('SideDrawer.calendar')}
             labelStyle={styles.text}
             onPress={() => {
               navigateTo(props.navigation, 'Calendar');

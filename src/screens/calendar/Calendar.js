@@ -132,10 +132,6 @@ const Calendar = () => {
         loadItemsForMonth={loadItems}
         theme={{
           calendarBackground: Colors.backgroundColor,
-          calendarOffset() {
-            const offset = Platform.OS === 'ios' ? 90 : 100;
-            return offset - this.viewHeight / 2;
-          },
           textSectionTitleColor: Colors.white,
           dayTextColor: Colors.white,
           monthTextColor: Colors.white,
@@ -156,7 +152,6 @@ const Calendar = () => {
         height={480}
         closeOnDragDown={true}
         closeOnPressMask={true}
-        animationType={'slide'}
         keyboardAvoidingViewEnabled={true}
         customStyles={{
           container: {
@@ -226,6 +221,17 @@ const Calendar = () => {
           )}
         </View>
       </RBSheet>
+
+      <View style={{position: 'absolute', right: 25, bottom: 25}}>
+        <FloatingActionButton
+          type={'add'}
+          buttonSize={70}
+          iconSize={24}
+          distanceToEdge={0}
+          distanceToHorizont={0}
+          onPressMain={() => refRBSheet.current.open()}
+        />
+      </View>
     </View>
   );
 };

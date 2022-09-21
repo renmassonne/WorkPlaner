@@ -86,7 +86,7 @@ const SignIn = () => {
         await deleteLoginData();
       }
 
-      navigation.navigate('BottomTabNavigator');
+      navigation.navigate('DrawerNavigator');
     } catch (e) {
       Alert.alert('Oops', e.message);
     }
