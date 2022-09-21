@@ -83,9 +83,11 @@ const Calendar = () => {
     <TouchableOpacity
       onPress={props.onPress}
       style={{
-        top: -20,
+        position: 'absolute',
+        top: 0,
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: 3,
       }}>
       <View style={styles.customButton}>
         <Icon
@@ -255,5 +257,13 @@ const styles = StyleSheet.create({
     padding: '4%',
     alignSelf: 'flex-end',
     borderRadius: 50,
+  },
+  customButton: {
+    width: 65,
+    height: 65,
+    borderRadius: 35,
+    backgroundColor: Colors.primary,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
 });

@@ -47,7 +47,24 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         );
       })}
 
-      <View style={{paddingHorizontal: '4%'}}></View>
+      <TouchableOpacity
+        style={{
+          top: -50,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View style={styles.customButton}>
+          <Icon
+            name={'plus'}
+            type="font-awesome-5"
+            iconStyle={{
+              color: Colors.white,
+            }}
+            size={28}
+          />
+        </View>
+      </TouchableOpacity>
+
       <TouchableOpacity>
         <View style={styles.container}>
           <Icon
@@ -90,7 +107,9 @@ const BottomTabNavigator = props => {
   return (
     <Tab.Navigator
       tabBar={props => <CustomTabBar {...props} />}
-      screenOptions={{headerShown: false}}>
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Tab.Screen name="home" component={HomeScreen} />
       <Tab.Screen name="calendar" component={Calendar} />
     </Tab.Navigator>
@@ -102,7 +121,6 @@ export default BottomTabNavigator;
 const styles = StyleSheet.create({
   tabNavigator: {
     position: 'relative',
-    bottom: 0,
     height: 90,
     width: '100%',
     paddingHorizontal: '6%',
@@ -112,6 +130,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    zIndex: 0,
   },
   container: {
     top: 12,
@@ -119,8 +138,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   customButton: {
-    width: 65,
-    height: 65,
+    width: 70,
+    height: 70,
     borderRadius: 35,
     backgroundColor: Colors.primary,
     alignContent: 'center',

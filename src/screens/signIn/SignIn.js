@@ -43,18 +43,20 @@ const SignIn = () => {
   const navigation = useNavigation();
 
   testFunction = async () => {
-    const loginSaved = await secureStorage.getItemFromSecureStorage(
-      'saveLogin',
-    );
-
-    if (loginSaved == 'true') {
+    if (saveLogin == true) {
       setSaveLogin(true);
+
+      const loginSaved = await secureStorage.getItemFromSecureStorage(
+        'saveLogin',
+      );
 
       const userName = await secureStorage.getItemFromSecureStorage('username');
       const Password = await secureStorage.getItemFromSecureStorage('password');
 
       setUsername(userName);
       setPassword(Password);
+    } else if (saveLogin == false) {
+      secureStorage.flushSecureStorage();
     }
   };
 
