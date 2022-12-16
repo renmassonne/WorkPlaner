@@ -98,7 +98,7 @@ const Calendar = () => {
     return (
       <TouchableOpacity
         style={{marginTop: '2%'}}
-        onPress={() => refRBSheet.current.open()}
+        onPress={() => console.log(item)}
         onLongPress={() => onDeleteItem(item.id)}>
         <Card>
           <View
