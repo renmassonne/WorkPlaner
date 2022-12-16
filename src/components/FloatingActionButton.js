@@ -31,7 +31,7 @@ const FloatingActionButton = props => {
 
   return (
     <FloatingAction
-      color={Colors.backgroundColor}
+      color={Colors.primary_dark}
       buttonSize={props.buttonSize}
       onPressMain={props.onPressMain}
       distanceToEdge={{

@@ -149,14 +149,14 @@ const styles = StyleSheet.create({
   },
   profile_Pic: {
     backgroundColor: Colors.white,
-    shadowColor: '#000',
+    shadowColor: '#fff',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   text: {
     color: Colors.white,

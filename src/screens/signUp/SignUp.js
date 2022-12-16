@@ -16,11 +16,10 @@ import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
 import i18n from 'i18n-js';
-import Logo from './../../../assets/images/Logo.png';
-import IconInput from '../../components/IconInput';
-import CustomButton from '../../components/CustomButton';
-import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../../../Colors';
+import IconInput from '../../components/IconInput';
+import Logo from './../../../assets/images/Logo.png';
+import CustomButton from '../../components/CustomButton';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -56,7 +55,7 @@ const SignIn = () => {
   };
 
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: Colors.generalBackground}}>
       <SafeAreaView style={styles.root}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
         <TouchableOpacity style={styles.goBack} onPress={onGoBackSignIn}>
@@ -148,7 +147,7 @@ const SignIn = () => {
         </View>
         <Text style={styles.credentials}>{'©Workplaner - 2022'}</Text>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
 

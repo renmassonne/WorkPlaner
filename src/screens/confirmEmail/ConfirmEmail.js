@@ -16,12 +16,11 @@ import {useForm} from 'react-hook-form';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 import i18n from 'i18n-js';
-import Logo from './../../../assets/images/Logo.png';
 import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
+import Logo from './../../../assets/images/Logo.png';
 import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
-import LinearGradient from 'react-native-linear-gradient';
 
 const ConfirmEmail = () => {
   const route = useRoute();
@@ -62,7 +61,7 @@ const ConfirmEmail = () => {
   };
 
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: Colors.generalBackground}}>
       <SafeAreaView style={styles.root}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
         <TouchableOpacity style={styles.goBack} onPress={onGoBackSignIn}>
@@ -109,7 +108,7 @@ const ConfirmEmail = () => {
         </View>
         <Text style={styles.credentials}>{'©Workplaner - 2022'}</Text>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
 

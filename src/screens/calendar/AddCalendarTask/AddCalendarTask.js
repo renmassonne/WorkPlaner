@@ -44,7 +44,8 @@ const AddCalendarTask = () => {
             fontSize: 26,
             fontWeight: '600',
             color: Colors.white,
-            marginRight: '25%',
+            // marginRight: '25%',
+            textAlign: 'center',
           }}>
           Add Task
         </Text>

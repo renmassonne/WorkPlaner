@@ -15,12 +15,11 @@ import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
 import i18n from 'i18n-js';
-import Logo from './../../../assets/images/Logo.png';
+import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
+import Logo from './../../../assets/images/Logo.png';
 import CustomButton from '../../components/CustomButton';
 import PressableText from '../../components/PressableText';
-import LinearGradient from 'react-native-linear-gradient';
-import Colors from '../../../Colors';
 
 import * as secureStorage from '../../../global/storage/secureStorage';
 
@@ -59,10 +58,6 @@ const SignIn = () => {
       secureStorage.flushSecureStorage();
     }
   };
-
-  useEffect(() => {
-    testFunction();
-  });
 
   const onSignInPressed = async data => {
     if (loading) {
@@ -115,11 +110,11 @@ const SignIn = () => {
   };
 
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: Colors.generalBackground}}>
       <SafeAreaView style={styles.root}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
         <View style={styles.container}>
-          <View style={{marginTop: '12%'}}>
+          <View style={{marginTop: '8%'}}>
             <IconInput
               name={'username'}
               Value={username}
@@ -152,7 +147,9 @@ const SignIn = () => {
                   }}
                   thumbColor={Colors.white}
                   ios_backgroundColor="#3e3e3e"
-                  onValueChange={saveLoginSaved => setSaveLogin(saveLoginSaved)}
+                  onValueChange={saveLoginSaved => {
+                    setSaveLogin(saveLoginSaved);
+                  }}
                   value={saveLogin}
                   style={{marginLeft: '4%', marginBottom: 8, marginTop: 2}}
                 />
@@ -175,7 +172,7 @@ const SignIn = () => {
             </Pressable>
           </View>
 
-          <View style={{marginTop: '18%'}}>
+          <View style={{marginTop: '12%'}}>
             <CustomButton
               text={i18n.t('signInFacebook')}
               onPress={onSignInFacebook}
@@ -201,7 +198,7 @@ const SignIn = () => {
         </View>
         <Text style={styles.credentials}>{'©Workplaner - 2022'}</Text>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
 

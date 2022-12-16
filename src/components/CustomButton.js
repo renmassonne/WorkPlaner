@@ -43,8 +43,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 8,
   },
-  container_PRIMARY: {backgroundColor: Colors.primary},
-  container_TERTIARY: {backgroundColor: Colors.iconBackgroundColor},
+  container_PRIMARY: {backgroundColor: Colors.primary_dark},
+  container_TERTIARY: {
+    backgroundColor: Colors.iconBackgroundColor,
+    borderWidth: 1,
+    borderColor: Colors.white,
+  },
   text: {
     color: Colors.white,
     fontSize: 16,

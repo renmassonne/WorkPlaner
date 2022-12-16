@@ -10,18 +10,24 @@ import {useNavigation} from '@react-navigation/native';
 
 import MenuIcon from './../../assets/images/Menu-Icon.png';
 import LinearGradient from 'react-native-linear-gradient';
+import Colors from '../../Colors';
 
 const Layout = props => {
   const navigation = useNavigation();
 
   return (
-    <LinearGradient colors={['#1D1879', '#393289']} style={styles.container}>
-      <SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={{flex: 1}}>
         <View style={{paddingVertical: '6%'}}>
+          <View style={styles.innerContainer}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Image source={MenuIcon} style={styles.menuIcon} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.content}>{props.children}</View>
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -32,6 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingHorizontal: '8%',
+    backgroundColor: Colors.generalBackground,
   },
   innerContainer: {
     alignContent: 'center',

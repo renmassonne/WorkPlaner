@@ -1,13 +1,12 @@
 const Colors = {
-  generalBackground: '#1D1879',
+  generalBackground: '#161622',
   iconBackgroundColor: 'rgba(255,255,255,0.25)',
-  white: '#FFFFFF',
-  link: '#F28241',
-  primary: '#F23838',
-  backgroundColor: '#1D1879',
-  backgroundColor_light: '#393289',
-  backgroundColor_lighter: '#393289CC',
-  calendarText: '#1D1879',
+  white: '#eff0f2',
+  link: '#FBC390',
+  primary: '#FBC390',
+  secondary: '#C5F1FE',
+  calendarText: '#C5F1FE',
+  primary_dark: '#F23838',
 };
 
 export default Colors;

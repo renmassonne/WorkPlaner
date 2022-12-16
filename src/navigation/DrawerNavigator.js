@@ -5,6 +5,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import HomeScreen from '../screens/homeScreen/HomeScreen';
 import Calendar from '../screens/calendar/Calendar';
+import Colors from '../../Colors';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ export default class DrawerNavigator extends React.Component {
         screenOptions={{
           headerShown: false,
           drawerStyle: {
-            backgroundColor: '#393289',
+            backgroundColor: Colors.generalBackground,
           },
         }}
         drawerContent={props => <DrawerContent {...props} />}>

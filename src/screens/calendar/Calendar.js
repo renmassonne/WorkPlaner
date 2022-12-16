@@ -1,24 +1,15 @@
 import React, {useState, useRef} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  Platform,
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {Card, Icon} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
-import {BottomSheet} from '@rneui/themed';
 
+import I18n from 'i18n-js';
 import Colors from '../../../Colors';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import FloatingActionButton from '../../components/FloatingActionButton';
 import CustomInput from '../../components/CustomInput';
-import I18n from 'i18n-js';
 import DatePicker from '../../components/Picker/DatePicker';
 import PickerInput from '../../components/Picker/PickerInput';
-import CalendarDetail from './calendarDetail/CalendarDetail';
+import FloatingActionButton from '../../components/FloatingActionButton';
 
 const timeToString = time => {
   const date = new Date(time);
@@ -29,7 +20,6 @@ const Calendar = () => {
   const refRBSheet = useRef();
 
   const [items, setItems] = useState({});
-  const [isVisible, setIsVisible] = useState(false);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   const [name, setName] = useState('');
@@ -47,9 +37,11 @@ const Calendar = () => {
     }
 
     const newItems = {};
+
     Object.keys(items).forEach(key => {
       newItems[key] = items[key];
     });
+
     setItems(newItems);
   };
 
@@ -131,18 +123,18 @@ const Calendar = () => {
         items={items}
         loadItemsForMonth={loadItems}
         theme={{
-          calendarBackground: Colors.backgroundColor,
+          calendarBackground: Colors.generalBackground,
           textSectionTitleColor: Colors.white,
           dayTextColor: Colors.white,
           monthTextColor: Colors.white,
           todayTextColor: Colors.primary,
           selectedDayBackgroundColor: Colors.iconBackgroundColor,
-          indicatorColor: Colors.backgroundColor,
+          indicatorColor: Colors.generalBackground,
           dotColor: Colors.primary,
           agendaKnobColor: Colors.white,
-          agendaDayTextColor: Colors.primary,
-          agendaDayNumColor: Colors.calendarText,
-          agendaTodayColor: Colors.primary,
+          agendaDayTextColor: Colors.generalBackground,
+          agendaDayNumColor: Colors.generalBackground,
+          agendaTodayColor: Colors.primary_dark,
         }}
         renderItem={renderItem}
       />
@@ -155,7 +147,7 @@ const Calendar = () => {
         keyboardAvoidingViewEnabled={true}
         customStyles={{
           container: {
-            backgroundColor: Colors.backgroundColor_light,
+            backgroundColor: Colors.generalBackground,
             borderTopLeftRadius: 25,
             borderTopRightRadius: 25,
             paddingVertical: '4%',
@@ -167,14 +159,13 @@ const Calendar = () => {
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
           }}>
           <Text
             style={{
               fontSize: 26,
               fontWeight: '600',
               color: Colors.white,
-              marginRight: '25%',
             }}>
             Add Task
           </Text>
@@ -222,7 +213,12 @@ const Calendar = () => {
         </View>
       </RBSheet>
 
-      <View style={{position: 'absolute', right: 25, bottom: 25}}>
+      <View
+        style={{
+          position: 'absolute',
+          right: 25,
+          bottom: 25,
+        }}>
         <FloatingActionButton
           type={'add'}
           buttonSize={70}
@@ -241,13 +237,13 @@ export default Calendar;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: Colors.generalBackground,
     paddingTop: '10%',
   },
   addWrapper: {
     flex: 1,
     height: 600,
-    backgroundColor: Colors.backgroundColor_light,
+    backgroundColor: Colors.generalBackground,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingVertical: '4%',
@@ -259,8 +255,10 @@ const styles = StyleSheet.create({
     paddingTop: '4%',
   },
   saveButton: {
-    backgroundColor: Colors.primary,
-    padding: '4%',
+    position: 'absolute',
+    right: 0,
+    backgroundColor: Colors.primary_dark,
+    padding: 12,
     alignSelf: 'flex-end',
     borderRadius: 50,
   },
