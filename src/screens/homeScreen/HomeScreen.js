@@ -35,6 +35,9 @@ const HomeScreen = () => {
             padding: '4%',
             borderRadius: 4,
             borderColor: Colors.white,
+            borderWidth: 1,
+            borderColor: Colors.white,
+            color: Colors.white,
           }}
           onChangeText={text => {
             setText(text);
@@ -42,6 +45,7 @@ const HomeScreen = () => {
           editable={true}
           clearButtonMode={'always'}
           placeholder={'Test'}
+          placeholderTextColor={Colors.white}
         />
 
         <Text>{text}</Text>

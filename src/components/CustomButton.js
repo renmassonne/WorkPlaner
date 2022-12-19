@@ -3,7 +3,6 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import {Icon} from '@rneui/themed';
 
-//import Icon from 'react-native-fontawesome-pro';
 import Colors from '../../Colors';
 
 const CustomButton = ({onPress, text, type, iconButton, iconName}) => {
