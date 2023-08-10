@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {Icon} from '@rneui/themed';
 import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
@@ -19,12 +18,13 @@ import i18n from 'i18n-js';
 import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
 import Logo from './../../../assets/images/Logo.png';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomButton from '../../components/CustomButton';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-const SignIn = () => {
+const SignUp = () => {
   const {control, handleSubmit, watch} = useForm();
 
   const password = watch('password');
@@ -59,12 +59,7 @@ const SignIn = () => {
       <SafeAreaView style={styles.root}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
         <TouchableOpacity style={styles.goBack} onPress={onGoBackSignIn}>
-          <Icon
-            name={'arrow-left'}
-            type="font-awesome-5"
-            iconStyle={{color: 'white'}}
-            size={36}
-          />
+          <Icon name={'arrow-left'} color={'white'} size={36} />
         </TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.title}>{i18n.t('signUpHeader')}</Text>
@@ -103,7 +98,7 @@ const SignIn = () => {
               name={'password'}
               placeholder={i18n.t('password')}
               control={control}
-              secureTextEntry
+              //secureTextEntry
               rules={{
                 required: i18n.t('passwordRequired'),
                 minLength: {value: 3, message: i18n.t('passwordToShort')},
@@ -114,7 +109,7 @@ const SignIn = () => {
               name={'passwordConfirm'}
               placeholder={i18n.t('confirmPassword')}
               control={control}
-              secureTextEntry
+              //secureTextEntry
               rules={{
                 required: i18n.t('passwordRequired'),
                 minLength: {value: 3, message: i18n.t('passwordToShort')},
@@ -151,7 +146,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
 
 const styles = StyleSheet.create({
   root: {

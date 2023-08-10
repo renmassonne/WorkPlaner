@@ -1,12 +1,13 @@
 import React, {useState, useRef} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
-import {Card, Icon} from '@rneui/themed';
+import {Card} from '@rneui/themed';
 import {Agenda} from 'react-native-calendars';
 
 import I18n from 'i18n-js';
 import Colors from '../../../Colors';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import CustomInput from '../../components/CustomInput';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from '../../components/Picker/DatePicker';
 import PickerInput from '../../components/Picker/PickerInput';
 import FloatingActionButton from '../../components/FloatingActionButton';
@@ -21,10 +22,12 @@ const Calendar = () => {
 
   const [items, setItems] = useState({});
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
 
   const loadItems = day => {
     for (let i = -15; i < 85; i++) {
@@ -54,7 +57,8 @@ const Calendar = () => {
       id: index,
       name: name,
       description: description,
-      day: isFormattedDate,
+      date: isFormattedDate,
+      time: time,
     });
 
     index += 1;
@@ -82,14 +86,7 @@ const Calendar = () => {
         zIndex: 3,
       }}>
       <View style={styles.customButton}>
-        <Icon
-          name={'home'}
-          type="font-awesome-5"
-          iconStyle={{
-            color: Colors.white,
-          }}
-          size={20}
-        />
+        <Icon name={'home'} icon={Colors.white} size={20} />
       </View>
     </TouchableOpacity>;
   };
@@ -169,13 +166,9 @@ const Calendar = () => {
             }}>
             Add Task
           </Text>
+
           <TouchableOpacity style={styles.saveButton} onPress={onSavePressed}>
-            <Icon
-              name={'save'}
-              type="font-awesome-5"
-              iconStyle={{color: 'white'}}
-              size={22}
-            />
+            <Icon name={'save'} color={'white'} size={22} />
           </TouchableOpacity>
         </View>
 
@@ -187,6 +180,7 @@ const Calendar = () => {
               setName(value);
             }}
           />
+
           <CustomInput
             placeholder={I18n.t('Calendar.description')}
             value={description}
@@ -194,19 +188,51 @@ const Calendar = () => {
             multiline
           />
 
-          <PickerInput
-            value={date.toLocaleDateString()}
-            placeholder={I18n.t('Calendar.date')}
-            onPress={() => setIsDatePickerVisible(!isDatePickerVisible)}
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1}}>
+              <PickerInput
+                value={date.toLocaleDateString()}
+                placeholder={I18n.t('Calendar.date')}
+                onPress={() => setIsDatePickerVisible(!isDatePickerVisible)}
+                icon={'calendar'}
+              />
+            </View>
+
+            <View style={{width: '8%'}}></View>
+
+            <View style={{flex: 1}}>
+              <PickerInput
+                value={time.toLocaleTimeString()}
+                placeholder={I18n.t('Calendar.time')}
+                onPress={() => setIsTimePickerVisible(!isTimePickerVisible)}
+                icon={'clock-o'}
+              />
+            </View>
+          </View>
 
           {isDatePickerVisible && (
             <DatePicker
+              mode={'date'}
               value={date}
               locale={I18n.locale}
               onChange={(event, date) => {
                 setDate(date);
                 setIsDatePickerVisible(false);
+              }}
+            />
+          )}
+
+          {isTimePickerVisible && (
+            <DatePicker
+              mode={'time'}
+              value={time}
+              locale={I18n.locale}
+              onChange={(event, time) => {
+                setTime(time);
+                setIsTimePickerVisible(false);
               }}
             />
           )}

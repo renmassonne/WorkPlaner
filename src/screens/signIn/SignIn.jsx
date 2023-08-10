@@ -10,11 +10,11 @@ import {
   Alert,
   Switch,
 } from 'react-native';
+import i18n from 'i18n-js';
 import {Auth} from 'aws-amplify';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
-import i18n from 'i18n-js';
 import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
 import Logo from './../../../assets/images/Logo.png';
@@ -41,7 +41,7 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  testFunction = async () => {
+  const testFunction = async () => {
     if (saveLogin == true) {
       setSaveLogin(true);
 

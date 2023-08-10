@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "workpl49b4162e",
+    "resourceNameTruncated": "workpl3ceee658",
     "userPoolName": "WorkPlaner",
     "autoVerifiedAttributes": [
       "email"
@@ -17,7 +17,7 @@
     "emailVerificationSubject": "Verification code: {####}",
     "emailVerificationMessage": "Verification code: {####}",
     "defaultPasswordPolicy": false,
-    "passwordPolicyMinLength": 6,
+    "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
       "preferred_username",
@@ -29,9 +29,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "WorkPl49b4162e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "WorkPl3ceee658_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "49b4162e",
+    "sharedId": "3ceee658",
     "resourceName": "WorkPlaner",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",

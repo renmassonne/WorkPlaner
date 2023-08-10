@@ -5,10 +5,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import SignIn from '../screens/signIn/SignIn';
-import SignUp from './../screens/signUp/SignUp';
-import ConfirmEmail from './../screens/confirmEmail/ConfirmEmail';
-import NewPassword from './../screens/newPassword/NewPassword';
-import ForgotPassword from './../screens/forgotPassword/ForgotPassword';
+import SignUp from '../screens/signUp/SignUp';
+import ConfirmEmail from '../screens/confirmEmail/ConfirmEmail';
+import NewPassword from '../screens/newPassword/NewPassword';
+import ForgotPassword from '../screens/forgotPassword/ForgotPassword';
 import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator();

@@ -48,6 +48,7 @@ const de = {
     name: 'Name',
     description: 'Beschreibung',
     date: 'Datum',
+    time: 'Zeit',
   },
 };
 

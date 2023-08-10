@@ -48,6 +48,7 @@ const en = {
     name: 'Name',
     description: 'Description',
     date: 'Date',
+    time: 'Time',
   },
 };
 

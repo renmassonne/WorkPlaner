@@ -1,18 +1,24 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {de, en} from './i18n/supportedLanguages';
-import {configureFontAwesomePro} from 'react-native-fontawesome-pro';
-import {Amplify, Auth} from 'aws-amplify';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
+import React from 'react';
 import i18n from 'i18n-js';
-import awsconfig from './src/aws-exports';
-import Navigation from './src/navigation';
-import RNBootSplash from 'react-native-bootsplash';
+import {Amplify} from 'aws-amplify';
+import {de, en} from './i18n/supportedLanguages';
+import {View, StyleSheet, Text} from 'react-native';
+import {configureFontAwesomePro} from 'react-native-fontawesome-pro';
+
+import config from './src/aws-exports';
 
 import * as RNLocalize from 'react-native-localize';
+import Navigation from './src/navigation';
 
 configureFontAwesomePro();
-Amplify.configure(awsconfig);
+Amplify.configure(config);
 
 i18n.locale = RNLocalize.getLocales()[0].languageCode;
 
@@ -30,19 +36,13 @@ switch (i18n.locale) {
     break;
 }
 
-const App = () => {
-  React.useEffect(() => {
-    setTimeout(() => {
-      RNBootSplash.hide();
-    }, 1000);
-  }, []);
-
+function App() {
   return (
-    <View colors={['#1D1879', '#393289']} style={styles.root}>
+    <View style={{flex: 1}}>
       <Navigation />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

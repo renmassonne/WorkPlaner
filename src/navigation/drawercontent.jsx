@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View, StyleSheet, Text, Dimensions} from 'react-native';
 import {Auth} from 'aws-amplify';
-import {Icon} from '@rneui/themed';
 import {Avatar, Badge} from '@rneui/themed';
 import {DrawerItem} from '@react-navigation/drawer';
 
-import Colors from '../../Colors';
 import i18n from 'i18n-js';
+import Colors from '../../Colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const win = Dimensions.get('window');
 
 export function DrawerContent(props) {
   const [user, setUser] = useState();
 
-  checkUser = async () => {
+  const checkUser = async () => {
     const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
 
     if (!user) {
@@ -64,14 +64,7 @@ export function DrawerContent(props) {
               navigateTo(props.navigation, 'HomeScreen');
             }}
             style={styles.margin0}
-            icon={() => (
-              <Icon
-                name={'home'}
-                type="font-awesome-5"
-                iconStyle={{color: Colors.white}}
-                size={24}
-              />
-            )}
+            icon={() => <Icon name={'home'} color={Colors.white} size={24} />}
           />
           <DrawerItem
             label={i18n.t('SideDrawer.calendar')}
@@ -82,12 +75,7 @@ export function DrawerContent(props) {
             style={styles.margin0}
             icon={() => (
               <View style={{marginLeft: '1.5%', marginRight: '1.5%'}}>
-                <Icon
-                  name={'calendar'}
-                  type="font-awesome-5"
-                  iconStyle={{color: Colors.white}}
-                  size={24}
-                />
+                <Icon name={'calendar'} color={Colors.white} size={24} />
               </View>
             )}
           />
@@ -100,14 +88,7 @@ export function DrawerContent(props) {
               navigateTo(props.navigation, 'Settings');
             }}
             style={styles.margin0}
-            icon={() => (
-              <Icon
-                name={'cogs'}
-                type="font-awesome-5"
-                iconStyle={{color: Colors.white}}
-                size={20}
-              />
-            )}
+            icon={() => <Icon name={'cogs'} color={Colors.white} size={20} />}
           />
           <DrawerItem
             label={i18n.t('SideDrawer.logOut')}
@@ -118,12 +99,7 @@ export function DrawerContent(props) {
             }}
             style={styles.margin0}
             icon={() => (
-              <Icon
-                name={'sign-out-alt'}
-                type="font-awesome-5"
-                iconStyle={{color: Colors.white}}
-                size={24}
-              />
+              <Icon name={'sign-out'} color={Colors.white} size={24} />
             )}
           />
         </View>

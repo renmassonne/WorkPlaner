@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Auth} from 'aws-amplify';
-import {Icon} from '@rneui/themed';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 
@@ -18,6 +17,7 @@ import i18n from 'i18n-js';
 import Colors from '../../../Colors';
 import IconInput from '../../components/IconInput';
 import Logo from './../../../assets/images/Logo.png';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomButton from '../../components/CustomButton';
 
 const NewPassword = () => {
@@ -53,12 +53,7 @@ const NewPassword = () => {
       <SafeAreaView style={styles.root}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
         <TouchableOpacity style={styles.goBack} onPress={onGoBackSignIn}>
-          <Icon
-            name={'arrow-left'}
-            type="font-awesome-5"
-            iconStyle={{color: 'white'}}
-            size={36}
-          />
+          <Icon name={'arrow-left'} color={'white'} size={36} />
         </TouchableOpacity>
         <View style={styles.container}>
           <Text style={styles.title}>{i18n.t('resetPassword')}</Text>

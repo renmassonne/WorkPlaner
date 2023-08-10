@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 import Colors from '../../../../Colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const AddCalendarTask = () => {
   const [name, setName] = useState('');
@@ -50,12 +51,7 @@ const AddCalendarTask = () => {
           Add Task
         </Text>
         <TouchableOpacity style={styles.saveButton} onPress={onSavePressed}>
-          <Icon
-            name={'save'}
-            type="font-awesome-5"
-            iconStyle={{color: 'white'}}
-            size={22}
-          />
+          <Icon name={'save'} color={'white'} size={22} />
         </TouchableOpacity>
       </View>
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import {Icon} from '@rneui/themed';
-
 import Colors from '../../Colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const CustomButton = ({onPress, text, type, iconButton, iconName}) => {
   return (
@@ -19,12 +18,7 @@ const CustomButton = ({onPress, text, type, iconButton, iconName}) => {
         }}>
         {iconButton && (
           <View style={{position: 'absolute', left: 15}}>
-            <Icon
-              name={iconName}
-              type="font-awesome"
-              iconStyle={{color: 'white'}}
-              size={20}
-            />
+            <Icon name={iconName} color={'white'} size={20} />
           </View>
         )}
         <Text style={[styles.text, {fontWeight: '500'}]}>{text}</Text>

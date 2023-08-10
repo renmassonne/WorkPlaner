@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from '@rneui/themed';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {FloatingAction} from 'react-native-floating-action';
 
 import i18n from 'i18n-js';
@@ -9,23 +9,9 @@ import Colors from '../../Colors';
 const FloatingActionButton = props => {
   const checkButtonType = type => {
     if (type == 'add') {
-      return (
-        <Icon
-          name={'plus'}
-          type="font-awesome-5"
-          iconStyle={{color: 'white'}}
-          size={24}
-        />
-      );
+      return <Icon name={'plus'} color={'white'} size={24} />;
     } else if (type == 'save') {
-      return (
-        <Icon
-          name={'save'}
-          type="font-awesome-5"
-          iconStyle={{color: 'white'}}
-          size={24}
-        />
-      );
+      return <Icon name={'save'} color={'white'} size={24} />;
     }
   };
 

@@ -81,4 +81,5 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 **.sample
+.npmrc
 #amplify-do-not-edit-end

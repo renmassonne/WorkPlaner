@@ -4,11 +4,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../../../Colors';
 
-const DatePicker = ({value, locale, onChange}) => {
+const DatePicker = ({value, locale, onChange, mode}) => {
   return (
     <View>
       <DateTimePicker
-        mode={'date'}
+        mode={mode}
         value={value}
         date={new Date()}
         display="spinner"
